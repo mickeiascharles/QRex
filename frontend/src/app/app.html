@@ -1,0 +1,110 @@
+<div class="page">
+  <header class="topbar">
+    <div class="logo">
+      <span class="logo-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </span>
+      <span class="logo-text">QRex</span>
+    </div>
+    <div class="badge badge--pill">100% grátis · 0% pegadinha</div>
+  </header>
+
+  <main class="hero">
+    <section class="hero-copy">
+      <span class="tag">O gerador Nº 1 do parquinho</span>
+      <h1>
+        Cole um link,<br />
+        ganhe um
+        <span class="highlight">QR bonitão</span>
+      </h1>
+      <p class="lead">
+        O QRex mastiga qualquer link e cospe um código escaneável na hora. Sem cadastro, sem
+        letrinha miúda, sem choro.
+      </p>
+      <span class="diamond" aria-hidden="true"></span>
+    </section>
+
+    <section class="card">
+      <svg class="mascot" viewBox="0 0 120 110" aria-hidden="true">
+        <path
+          class="mascot-spikes"
+          d="M20 30 L28 8 L36 28 L46 4 L54 28 L64 10 L70 30 Z"
+        />
+        <rect class="mascot-head" x="12" y="26" width="66" height="52" rx="22" />
+        <circle class="mascot-eye" cx="34" cy="50" r="10" />
+        <circle class="mascot-eye" cx="60" cy="50" r="10" />
+        <circle class="mascot-pupil" cx="36" cy="52" r="4" />
+        <circle class="mascot-pupil" cx="62" cy="52" r="4" />
+        <path class="mascot-teeth" d="M28 74 L34 84 L40 74 Z" />
+        <path class="mascot-teeth" d="M50 74 L56 84 L62 74 Z" />
+      </svg>
+
+      <label class="field-label" for="link-input">Seu link vai aqui</label>
+      <input
+        id="link-input"
+        #linkInput
+        type="text"
+        class="field-input"
+        placeholder="https://cole-seu-link-aqui.com"
+        autocomplete="url"
+        [value]="link()"
+        (input)="onLinkInput(linkInput.value)"
+        (keyup.enter)="generate()"
+      />
+
+      @if (error()) {
+        <p class="field-error">{{ error() }}</p>
+      }
+
+      <button class="btn-generate" type="button" (click)="generate()" [disabled]="loading()">
+        {{ loading() ? 'Mastigando…' : 'Gerar meu QR!' }}
+      </button>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      @if (qrDataUrl(); as qr) {
+        <div class="qr-result">
+          <img class="qr-image" [src]="qr" alt="QR code gerado para o link informado" width="160" height="160" />
+          <div class="qr-actions">
+            <button class="btn-download" type="button" (click)="download()">Baixar PNG</button>
+            <button class="btn-again" type="button" (click)="reset()">Gerar outro</button>
+          </div>
+        </div>
+      } @else {
+        <div class="qr-placeholder">
+          <span class="diamond diamond--sm" aria-hidden="true"></span>
+          <strong>Seu QR vai nascer aqui</strong>
+          <span>Cola o link ali em cima e aperta o botão verde</span>
+        </div>
+      }
+    </section>
+  </main>
+
+  <section class="steps">
+    <h2>Fácil de domar</h2>
+    <p class="steps-sub">Três passinhos e pronto.</p>
+
+    <div class="steps-grid">
+      <article class="step-card">
+        <span class="step-number step-number--yellow">1</span>
+        <h3>Cole o link</h3>
+        <p>Qualquer URL serve: o cardápio, o portfólio, a playlist da festa…</p>
+      </article>
+      <article class="step-card">
+        <span class="step-number step-number--red">2</span>
+        <h3>Aperte o botão</h3>
+        <p>O QRex ruge, mastiga tudo e monta os quadradinhos na hora.</p>
+      </article>
+      <article class="step-card">
+        <span class="step-number step-number--blue">3</span>
+        <h3>Baixe e cole por aí</h3>
+        <p>PNG prontinho pra imprimir, postar ou tatuar (não recomendamos).</p>
+      </article>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>QRex © 2026 · Nenhum dinossauro foi ferido na geração destes códigos.</p>
+  </footer>
+</div>
